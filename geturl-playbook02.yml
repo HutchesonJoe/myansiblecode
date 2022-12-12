@@ -1,0 +1,18 @@
+---
+- name: Use uri module with API
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Access the website to verify url is live
+      uri: 
+        method: GET 
+        url: http://api.open-notify.org/astros.json
+        status_code: 200
+        return_content: true
+      register: astros
+
+    - name: "Info: HTTP Response for the URL"
+      debug: 
+            var: astros.content
