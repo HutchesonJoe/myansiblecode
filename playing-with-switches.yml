@@ -1,0 +1,19 @@
+---
+- name: Network Playbook to play with switches
+  hosts: sw-1, sw-2
+  connection: ansible.netcommon.network_cli # full path
+                                            # this connection type is for "terminal emulation + expect scripting"
+  gather_facts: yes
+
+  tasks: 
+  - name: get facts from switches
+    debug:
+      var: ansible_facts
+
+  - name: send command to switches
+    arista.eos.eos_route_maps
+    arista.eos.eos_command:
+      commands: 
+        - command:  
+              debug: 
+                var: ansible_facts
