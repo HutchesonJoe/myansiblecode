@@ -1,0 +1,15 @@
+---
+- name: Playbook to interact with News API
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  
+  # api key  
+  vars_files:
+    - ~/news.key
+  # selects the first article
+  vars:
+    articlenumber: "1"
+
+  roles:
+    - news-api-first-article   

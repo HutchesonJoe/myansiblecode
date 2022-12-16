@@ -1,0 +1,19 @@
+---
+# tasks file for bootstrap
+- name: Get first article from API News App
+  block:
+    - name: Make a call to the API News App for top headlines of the day
+      script: "~/mycode/ansible-cert-project/scripts/get-news-api-info.py {{articlenumber}} {{api_key}}"
+      args:
+        executable: /usr/bin/python3
+      register: article
+
+    - name: Create file to local host with standard output
+      copy:
+        dest: "~/mycode/ansible-cert-project/first-article-stdout.json"
+        content: "{{article.stdout}}"
+
+  rescue:
+    - name: failure notification
+      debug: 
+        msg: "Article unavailable. You may have selected a number out of the range."
